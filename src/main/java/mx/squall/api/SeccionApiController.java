@@ -1,5 +1,6 @@
 package mx.squall.api;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.squall.entity.ErrorWrapper;
+import mx.squall.entity.Wrapper;
 import mx.squall.service.SeccionService;
 
 @RestController
@@ -23,13 +26,13 @@ public class SeccionApiController {
 	@RequestMapping(value = "secciones", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getSecciones() {
-		return servicioSeccion.obtenerSecciones();
+		return new Wrapper(true, new ArrayList<ErrorWrapper>(), (Object)servicioSeccion.obtenerSecciones());
 	}
 	
 	@RequestMapping(value = "secciones/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Object getSecciones(@PathVariable String id) {
-		return servicioSeccion.obtenerSeccion(id);
+		return new Wrapper(true, new ArrayList<ErrorWrapper>(), (Object)servicioSeccion.obtenerSeccion(id));
 	}
 	
 	@RequestMapping(value = "secciones/{seccionId}/preguntas/{preguntaId}/respuestas", method = RequestMethod.POST)
@@ -42,11 +45,9 @@ public class SeccionApiController {
 			respuestaId = (String) respuestaBody.get("respuestaId");
 			result.put("esCorrecto", servicioSeccion.esCorrecto(seccionId, preguntaId, respuestaId));
 			result.put("opcion", respuestaId);
-		}else {
-			result.put("error", "No id");
 		}
 		result.put("seccion", seccionId);
 		result.put("pregunta", preguntaId);
-		return result;
+		return new Wrapper(true, new ArrayList<ErrorWrapper>(), (Object)result);
 	}
 }
