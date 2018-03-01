@@ -6,7 +6,7 @@ spring:
      # database: cloud
      # username: user1EU
      # password: 1EyG0eQDx5sH62Lx
-      uri: mongodb://user1EU:1EyG0eQDx5sH62Lx@mongodb-squall.7e14.starter-us-west-2.openshiftapps.com:27017/cloud
+      uri: mongodb://pipo2:pipo@ds127101.mlab.com:27101/cloud
       
   datasource:
     driverClassName: com.mongodb.Mongo
